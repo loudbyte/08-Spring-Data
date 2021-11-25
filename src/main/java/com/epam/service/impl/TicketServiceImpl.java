@@ -1,7 +1,7 @@
 package com.epam.service.impl;
 
 import com.epam.dao.TicketDao;
-import com.epam.exception.BusinessExcetion;
+import com.epam.exception.BusinessException;
 import com.epam.exception.NotFoundException;
 import com.epam.model.Event;
 import com.epam.model.Ticket;
@@ -29,7 +29,7 @@ public class TicketServiceImpl implements TicketService {
   }
 
   @Override
-  public Ticket create(Ticket entity) throws BusinessExcetion {
+  public Ticket create(Ticket entity) throws BusinessException {
     return ticketDao.create(entity);
   }
 

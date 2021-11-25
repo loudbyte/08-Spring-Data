@@ -10,7 +10,7 @@ public interface Event {
      * Event id. UNIQUE.
      * @return Event Id
      */
-    long getId();
+    Long getId();
     void setId(long id);
     String getTitle();
     void setTitle(String title);

@@ -9,7 +9,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.epam.exception.BusinessExcetion;
+import com.epam.exception.BusinessException;
 import com.epam.exception.NotFoundException;
 import com.epam.model.Event;
 import com.epam.model.Ticket;
@@ -70,7 +70,7 @@ class BookingFacadeImplTest {
   }
 
   @Test
-  void testCreateEvent() throws BusinessExcetion {
+  void testCreateEvent() throws BusinessException {
     EventService eventService = mock(EventService.class);
     when(eventService.create(any())).thenReturn(mock(Event.class));
     TicketServiceImpl ticketService = new TicketServiceImpl();
@@ -134,7 +134,7 @@ class BookingFacadeImplTest {
   }
 
   @Test
-  void testCreateUser() throws BusinessExcetion {
+  void testCreateUser() throws BusinessException {
     UserService userService = mock(UserService.class);
     when(userService.create(any())).thenReturn(mock(User.class));
     EventServiceImpl eventService = new EventServiceImpl();
@@ -165,7 +165,7 @@ class BookingFacadeImplTest {
   }
 
   @Test
-  void testBookTicket() throws BusinessExcetion {
+  void testBookTicket() throws BusinessException {
     TicketService ticketService = mock(TicketService.class);
     when(ticketService.create(any())).thenReturn(mock(Ticket.class));
     EventServiceImpl eventService = new EventServiceImpl();

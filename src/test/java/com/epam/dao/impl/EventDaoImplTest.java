@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.epam.dao.db.InMemoryDatabase;
-import com.epam.exception.BusinessExcetion;
+import com.epam.exception.BusinessException;
 import com.epam.exception.NotFoundException;
 import com.epam.model.Event;
 import java.util.ArrayList;
@@ -45,13 +45,13 @@ class EventDaoImplTest {
   }
 
   @Test
-  void testCreate() throws BusinessExcetion {
+  void testCreate() throws BusinessException {
     InMemoryDatabase inMemoryDatabase = mock(InMemoryDatabase.class);
     when(inMemoryDatabase.create(any())).thenThrow(
-        new BusinessExcetion("Not all who wander are lost"));
+        new BusinessException("Not all who wander are lost"));
     EventDaoImpl eventDaoImpl = new EventDaoImpl();
     ReflectionTestUtils.setField(eventDaoImpl, "database", inMemoryDatabase);
-    assertThrows(BusinessExcetion.class, () -> eventDaoImpl.create(mock(Event.class)));
+    assertThrows(BusinessException.class, () -> eventDaoImpl.create(mock(Event.class)));
     verify(inMemoryDatabase).create(any());
   }
 

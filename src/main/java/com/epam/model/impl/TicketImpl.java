@@ -4,14 +4,14 @@ import com.epam.model.Ticket;
 
 public class TicketImpl implements Ticket {
 
-  private long id;
+  private Long id;
   private long eventId;
   private long userId;
   private Category category;
   private int place;
 
   @Override
-  public long getId() {
+  public Long getId() {
     return id;
   }
 

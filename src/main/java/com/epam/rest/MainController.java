@@ -1,5 +1,6 @@
 package com.epam.rest;
 
+import com.epam.exception.BusinessException;
 import com.epam.facade.BookingFacade;
 import com.epam.model.Event;
 import com.epam.model.Ticket;
@@ -8,14 +9,17 @@ import com.epam.model.impl.EventImpl;
 import com.epam.model.impl.UserImpl;
 import java.util.Date;
 import java.util.List;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
 public class MainController {
@@ -76,9 +80,13 @@ public class MainController {
     return bookingFacade.getUserById(id);
   }
 
-  @GetMapping("/userByName")
-  public List<User> getUserByName(@RequestParam String name) {
-    return bookingFacade.getUsersByName(name, 1,1);
+  @GetMapping("/usersByName")
+  public ModelAndView getUsersByName(Model model, @RequestParam String name) {
+    List<User> usersByName = bookingFacade.getUsersByName(name, 1, 1);
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.setViewName("showUsers");
+    model.addAttribute("users", usersByName);
+    return modelAndView;
   }
 
   @GetMapping("/userByEmail")
@@ -87,11 +95,20 @@ public class MainController {
   }
 
   @PostMapping("/user")
-  public void createUser(@RequestParam String name, @RequestParam String email) {
-    User user = new UserImpl();
-    user.setName(name);
-    user.setEmail(email);
-    bookingFacade.createUser(user);
+  public ModelAndView createUser(RedirectAttributes redirectAttributes, @ModelAttribute("user") UserImpl user) {
+    String message = "Success";
+    String alert = "alert-success";
+    try {
+      bookingFacade.createUser(user);
+    } catch (BusinessException e) {
+      message = "Failed";
+      alert = "alert-danger";
+    }
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.setViewName("redirect:/");
+    redirectAttributes.addFlashAttribute("message", message);
+    redirectAttributes.addFlashAttribute("alertClass", alert);
+    return modelAndView;
   }
 
   @PutMapping("/user")

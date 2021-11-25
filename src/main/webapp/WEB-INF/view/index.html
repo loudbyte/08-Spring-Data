@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
 <head>
   <meta charset="UTF-8">
-  <title>Hello world</title>
+  <title>Main Page</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+  <style>
+    h1 {color:red;}
+    body {
+      font: normal 24px Verdana, Arial, sans-serif;
+      margin: auto;
+      margin-top: 20px;
+      width: 50%;
+      border: 3px solid green;
+      padding: 10px;
+    }
+  </style>
 </head>
 <body>
-Hello world
+
+<center><h1>Main Page</h1></center>
+
+<h2>Create a User:</h2>
+
+<form action="#" th:action="@{/user}" th:object="${user}" method="post">
+  <p>Name: <input type="text" th:name="name"/></p>
+  <p>Email: <input type="text" th:name="email"/></p>
+  <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+</form>
+<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+
+<br/>
+<h2>Find user:</h2>
+
+<form th:action="@{/usersByName}" method="GET">
+  Name:
+  <input type="text" th:name="name" />
+  <br/>
+  <input type="submit" value="Find" />
+</form>
 </body>
 </html>

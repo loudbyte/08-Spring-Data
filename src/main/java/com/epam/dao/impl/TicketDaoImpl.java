@@ -1,7 +1,7 @@
 package com.epam.dao.impl;
 
 import com.epam.dao.TicketDao;
-import com.epam.exception.BusinessExcetion;
+import com.epam.exception.BusinessException;
 import com.epam.exception.NotFoundException;
 import com.epam.model.Ticket;
 import java.util.List;
@@ -21,7 +21,7 @@ public class TicketDaoImpl extends CommonDao implements TicketDao {
   }
 
   @Override
-  public Ticket create(Ticket entity) throws BusinessExcetion {
+  public Ticket create(Ticket entity) throws BusinessException {
     return (Ticket) database.create(entity);
   }
 

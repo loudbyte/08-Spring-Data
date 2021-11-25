@@ -1,6 +1,6 @@
 package com.epam.facade.impl;
 
-import com.epam.exception.BusinessExcetion;
+import com.epam.exception.BusinessException;
 import com.epam.exception.NotFoundException;
 import com.epam.facade.BookingFacade;
 import com.epam.model.Event;
@@ -56,7 +56,7 @@ public class BookingFacadeImpl implements BookingFacade {
     LOGGER.info("Try to create event: " + event);
     try {
       return eventService.create(event);
-    } catch (BusinessExcetion e) {
+    } catch (BusinessException e) {
       LOGGER.log(Level.WARNING, "Error creating event: " + event, e);
       return null;
     }
@@ -108,13 +108,13 @@ public class BookingFacadeImpl implements BookingFacade {
   }
 
   @Override
-  public User createUser(User user) {
+  public User createUser(User user) throws BusinessException {
     LOGGER.info("Try to create user: " + user);
     try {
       return userService.create(user);
-    } catch (BusinessExcetion e) {
-      LOGGER.log(Level.WARNING, "Error creating user: " + user, e);
-      return null;
+    } catch (BusinessException exception) {
+      LOGGER.log(Level.WARNING, "Error creating user: " + user, exception);
+      throw exception;
     }
   }
 
@@ -150,7 +150,7 @@ public class BookingFacadeImpl implements BookingFacade {
     LOGGER.info("Try to book ticket: " + ticket);
     try {
       return ticketService.create(ticket);
-    } catch (BusinessExcetion e) {
+    } catch (BusinessException e) {
       LOGGER.log(Level.WARNING, "Error booking ticket: " + ticket, e);
       return null;
     }

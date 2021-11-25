@@ -1,6 +1,6 @@
 package com.epam.service;
 
-import com.epam.exception.BusinessExcetion;
+import com.epam.exception.BusinessException;
 import com.epam.exception.NotFoundException;
 import java.util.List;
 
@@ -10,7 +10,7 @@ public interface BaseService<T> {
 
   List<T> getAll();
 
-  T create(T entity) throws BusinessExcetion;
+  T create(T entity) throws BusinessException;
 
   T update(T entity) throws NotFoundException;
 

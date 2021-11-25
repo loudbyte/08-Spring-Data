@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Show user</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+  <style>
+    h1 {color:red;}
+    body {
+      font: normal 24px Verdana, Arial, sans-serif;
+      margin: auto;
+      margin-top: 20px;
+      width: 50%;
+      border: 3px solid green;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+<a th:href="@{/}">Go to Main Page</a>
+<h1>Show user</h1>
+<div>
+  <table border="1">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Email</th>
+    </tr>
+    <tr th:each ="user : ${users}">
+      <td th:utext="${user.id}">...</td>
+      <td th:utext="${user.name}">...</td>
+      <td th:utext="${user.email}">...</td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

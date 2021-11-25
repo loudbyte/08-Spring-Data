@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.epam.dao.EventDao;
-import com.epam.exception.BusinessExcetion;
+import com.epam.exception.BusinessException;
 import com.epam.exception.NotFoundException;
 import com.epam.model.Event;
 import java.time.LocalDate;
@@ -48,7 +48,7 @@ class EventServiceImplTest {
   }
 
   @Test
-  void testCreate() throws BusinessExcetion {
+  void testCreate() throws BusinessException {
     EventDao eventDao = mock(EventDao.class);
     when(eventDao.create(any())).thenReturn(mock(Event.class));
     EventServiceImpl eventServiceImpl = new EventServiceImpl();

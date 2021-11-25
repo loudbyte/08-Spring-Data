@@ -1,7 +1,7 @@
 package com.epam.service.impl;
 
 import com.epam.dao.EventDao;
-import com.epam.exception.BusinessExcetion;
+import com.epam.exception.BusinessException;
 import com.epam.exception.NotFoundException;
 import com.epam.model.Event;
 import com.epam.service.EventService;
@@ -29,7 +29,7 @@ public class EventServiceImpl implements EventService {
   }
 
   @Override
-  public Event create(Event entity) throws BusinessExcetion {
+  public Event create(Event entity) throws BusinessException {
     return eventDao.create(entity);
   }
 

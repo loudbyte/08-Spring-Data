@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.epam.dao.TicketDao;
-import com.epam.exception.BusinessExcetion;
+import com.epam.exception.BusinessException;
 import com.epam.exception.NotFoundException;
 import com.epam.model.Event;
 import com.epam.model.Ticket;
@@ -45,7 +45,7 @@ class TicketServiceImplTest {
   }
 
   @Test
-  void testCreate() throws BusinessExcetion {
+  void testCreate() throws BusinessException {
     TicketDao ticketDao = mock(TicketDao.class);
     when(ticketDao.create(any())).thenReturn(mock(Ticket.class));
     TicketServiceImpl ticketServiceImpl = new TicketServiceImpl();

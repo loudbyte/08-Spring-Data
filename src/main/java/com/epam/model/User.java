@@ -8,7 +8,7 @@ public interface User {
      * User Id. UNIQUE.
      * @return User Id.
      */
-    long getId();
+    Long getId();
     void setId(long id);
     String getName();
     void setName(String name);

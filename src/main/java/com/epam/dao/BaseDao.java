@@ -1,6 +1,6 @@
 package com.epam.dao;
 
-import com.epam.exception.BusinessExcetion;
+import com.epam.exception.BusinessException;
 import com.epam.exception.NotFoundException;
 import java.util.List;
 
@@ -10,7 +10,7 @@ public interface BaseDao <T>{
 
   List<T> findAll();
 
-  T create(T entity) throws BusinessExcetion;
+  T create(T entity) throws BusinessException;
 
   T update(T entity) throws NotFoundException;
 

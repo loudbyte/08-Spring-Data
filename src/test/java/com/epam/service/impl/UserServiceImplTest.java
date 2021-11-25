@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.epam.dao.UserDao;
-import com.epam.exception.BusinessExcetion;
+import com.epam.exception.BusinessException;
 import com.epam.exception.NotFoundException;
 import com.epam.model.User;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ class UserServiceImplTest {
   }
 
   @Test
-  void testCreate() throws BusinessExcetion {
+  void testCreate() throws BusinessException {
     UserDao userDao = mock(UserDao.class);
     when(userDao.create(any())).thenReturn(mock(User.class));
     UserServiceImpl userServiceImpl = new UserServiceImpl();

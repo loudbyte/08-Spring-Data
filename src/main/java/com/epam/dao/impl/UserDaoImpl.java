@@ -1,7 +1,7 @@
 package com.epam.dao.impl;
 
 import com.epam.dao.UserDao;
-import com.epam.exception.BusinessExcetion;
+import com.epam.exception.BusinessException;
 import com.epam.exception.NotFoundException;
 import com.epam.model.User;
 import java.util.List;
@@ -21,7 +21,7 @@ public class UserDaoImpl extends CommonDao implements UserDao {
   }
 
   @Override
-  public User create(User entity) throws BusinessExcetion {
+  public User create(User entity) throws BusinessException {
     return (User) database.create(entity);
   }
 

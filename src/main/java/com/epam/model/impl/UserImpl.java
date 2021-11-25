@@ -4,12 +4,12 @@ import com.epam.model.User;
 
 public class UserImpl implements User {
 
-  private long id;
+  private Long id;
   private String name;
   private String email;
 
   @Override
-  public long getId() {
+  public Long getId() {
     return id;
   }
 

@@ -1,7 +1,7 @@
 package com.epam.service.impl;
 
 import com.epam.dao.UserDao;
-import com.epam.exception.BusinessExcetion;
+import com.epam.exception.BusinessException;
 import com.epam.exception.NotFoundException;
 import com.epam.model.User;
 import com.epam.service.UserService;
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User create(User entity) throws BusinessExcetion {
+  public User create(User entity) throws BusinessException {
     return userDao.create(entity);
   }
 

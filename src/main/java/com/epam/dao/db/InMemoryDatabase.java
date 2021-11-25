@@ -1,6 +1,6 @@
 package com.epam.dao.db;
 
-import com.epam.exception.BusinessExcetion;
+import com.epam.exception.BusinessException;
 import com.epam.exception.NotFoundException;
 import com.epam.model.Event;
 import com.epam.model.Ticket;
@@ -53,24 +53,27 @@ public class InMemoryDatabase {
         .collect(Collectors.toList());
   }
 
-  public Object create(Object entity) throws BusinessExcetion {
+  public Object create(Object entity) throws BusinessException {
     if (entity instanceof Ticket) {
-      if (dataBase.get(((Ticket) entity).getId(), Ticket.class) != null) {
-        throw new BusinessExcetion("Ticket with id + " + ((Ticket) entity).getId() + " already exists");
+      if (((Ticket) entity).getId() != null && dataBase.get(((Ticket) entity).getId(), Ticket.class) != null) {
+        throw new BusinessException("Ticket with id " + ((Ticket) entity).getId() + " already exists");
       }
-      dataBase.put(((Ticket)entity).getId(), entity);
+      ((Ticket) entity).setId(getSizeOfDataBase());
+      dataBase.put(entity);
     }
     if (entity instanceof Event) {
-      if (dataBase.get(((Event) entity).getId(), Ticket.class) != null) {
-        throw new BusinessExcetion("Event with id + " + ((Event) entity).getId() + " already exists");
+      if (((Event) entity).getId() != null && dataBase.get(((Event) entity).getId(), Event.class) != null) {
+        throw new BusinessException("Event with id " + ((Event) entity).getId() + " already exists");
       }
-      dataBase.put(((Event)entity).getId(), entity);
+      ((Event) entity).setId(getSizeOfDataBase());
+      dataBase.put(entity);
     }
     if (entity instanceof User) {
-      if (dataBase.get(((User) entity).getId(), Ticket.class) != null) {
-        throw new BusinessExcetion("User with id + " + ((User) entity).getId() + " already exists");
+      if (((User) entity).getId() != null && dataBase.get(((User) entity).getId(), User.class) != null) {
+        throw new BusinessException("User with id " + ((User) entity).getId() + " already exists");
       }
-      dataBase.put(((User)entity).getId(), entity);
+      ((User) entity).setId(getSizeOfDataBase());
+      dataBase.put(entity);
     }
     return entity;
   }
@@ -80,19 +83,19 @@ public class InMemoryDatabase {
       if (dataBase.get(((Ticket) entity).getId(), Ticket.class) == null) {
         throw new NotFoundException("Ticket with id + " + ((Ticket) entity).getId() + " not exists");
       }
-      dataBase.put(((Ticket)entity).getId(), entity);
+      dataBase.put(entity);
     }
     if (entity instanceof Event) {
       if (dataBase.get(((Event) entity).getId(), Event.class) == null) {
         throw new NotFoundException("Event with id + " + ((Event) entity).getId() + " not exists");
       }
-      dataBase.put(((Event)entity).getId(), entity);
+      dataBase.put(entity);
     }
     if (entity instanceof User) {
       if (dataBase.get(((User) entity).getId(), User.class) == null) {
         throw new NotFoundException("User with id + " + ((User) entity).getId() + " not exists");
       }
-      dataBase.put(((User)entity).getId(), entity);
+      dataBase.put(entity);
     }
     return entity;
   }
@@ -100,19 +103,19 @@ public class InMemoryDatabase {
   public boolean delete(Object entity) throws NotFoundException {
     if (entity instanceof Ticket) {
       if (dataBase.get(((Ticket) entity).getId(), Ticket.class) == null) {
-        throw new NotFoundException("Ticket with id + " + ((Ticket) entity).getId() + " not exists");
+        throw new NotFoundException("Ticket with id " + ((Ticket) entity).getId() + " not exists");
       }
       dataBase.remove(((Ticket)entity).getId(), Ticket.class);
     }
     if (entity instanceof Event) {
       if (dataBase.get(((Event) entity).getId(), Event.class) == null) {
-        throw new NotFoundException("Event with id + " + ((Event) entity).getId() + " not exists");
+        throw new NotFoundException("Event with id " + ((Event) entity).getId() + " not exists");
       }
       dataBase.remove(((Event)entity).getId(), Event.class);
     }
     if (entity instanceof User) {
       if (dataBase.get(((User) entity).getId(), User.class) == null) {
-        throw new NotFoundException("User with id + " + ((User) entity).getId() + " not exists");
+        throw new NotFoundException("User with id " + ((User) entity).getId() + " not exists");
       }
       dataBase.remove(((User)entity).getId(), User.class);
     }
@@ -133,16 +136,36 @@ public class InMemoryDatabase {
   }
 
   private static String generateId(Object entity) {
+    long id;
     if (entity instanceof Ticket) {
-      return TICKET_PREFIX + ((Ticket) entity).getId();
+      if (((Ticket) entity).getId() != null) {
+        id = ((Ticket) entity).getId();
+      } else {
+        id = getSizeOfDataBase();
+      }
+      return TICKET_PREFIX + id;
     }
     if (entity instanceof Event) {
-      return EVENT_PREFIX + ((Event) entity).getId();
+      if (((Event) entity).getId() != null) {
+        id = ((Event) entity).getId();
+      } else {
+        id = getSizeOfDataBase();
+      }
+      return EVENT_PREFIX + id;
     }
     if (entity instanceof User) {
-      return USER_PREFIX + ((User) entity).getId();
+      if (((User) entity).getId() != null) {
+        id = ((User) entity).getId();
+      } else {
+        id = getSizeOfDataBase();
+      }
+      return USER_PREFIX + id;
     }
     throw new IllegalArgumentException("Incorrect type");
+  }
+
+  private static int getSizeOfDataBase() {
+    return dataBase.db.size();
   }
 
 
@@ -158,8 +181,8 @@ public class InMemoryDatabase {
       return null;
     }
 
-    public void put(long key, Object value) {
-      db.put(generateId(value), value);
+    public void put(Object entity) {
+      db.put(generateId(entity), entity);
     }
 
     public Set<Entry<String, Object>> entrySet(){

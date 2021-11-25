@@ -1,5 +1,6 @@
 package com.epam.facade;
 
+import com.epam.exception.BusinessException;
 import com.epam.model.Event;
 import com.epam.model.Ticket;
 import com.epam.model.User;
@@ -87,7 +88,7 @@ public interface BookingFacade {
      * @param user User data.
      * @return Created User object.
      */
-    User createUser(User user);
+    User createUser(User user) throws BusinessException;
 
     /**
      * Updates user using given data.

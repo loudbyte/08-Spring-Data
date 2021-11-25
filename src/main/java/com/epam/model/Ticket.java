@@ -10,7 +10,7 @@ public interface Ticket {
      * Ticket Id. UNIQUE.
      * @return Ticket Id.
      */
-    long getId();
+    Long getId();
     void setId(long id);
     long getEventId();
     void setEventId(long eventId);

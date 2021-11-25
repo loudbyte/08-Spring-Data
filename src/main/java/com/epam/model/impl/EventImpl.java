@@ -5,12 +5,12 @@ import java.util.Date;
 
 public class EventImpl implements Event {
 
-  private long id;
+  private Long id;
   private String title;
   private Date date;
 
   @Override
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
