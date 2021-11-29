@@ -20,7 +20,7 @@ public class TicketServiceImpl implements TicketService {
 
   @Override
   public Ticket getById(long id) {
-    return ticketDao.findById(id);
+    return ticketDao.findOne(id);
   }
 
   @Override
@@ -39,8 +39,8 @@ public class TicketServiceImpl implements TicketService {
   }
 
   @Override
-  public boolean deleteById(long id) throws NotFoundException {
-    return ticketDao.delete(ticketDao.findById(id));
+  public void deleteById(long id) throws NotFoundException {
+    ticketDao.delete(ticketDao.findOne(id));
   }
 
   @Override

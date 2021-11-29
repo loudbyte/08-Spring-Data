@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BaseDao <T>{
 
-  T findById(long id);
+  T findOne(long id);
 
   List<T> findAll();
 
@@ -14,6 +14,8 @@ public interface BaseDao <T>{
 
   T update(T entity) throws NotFoundException;
 
-  boolean delete(T entity) throws NotFoundException;
+  void delete(T entity) throws NotFoundException;
+
+  void deleteById(long id) throws NotFoundException;
 
 }

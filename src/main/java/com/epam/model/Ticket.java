@@ -1,9 +1,11 @@
 package com.epam.model;
 
+import java.io.Serializable;
+
 /**
  * Created by maksym_govorischev.
  */
-public interface Ticket {
+public interface Ticket extends Serializable {
     public enum Category {STANDARD, PREMIUM, BAR}
 
     /**

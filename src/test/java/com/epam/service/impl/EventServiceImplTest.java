@@ -26,11 +26,11 @@ class EventServiceImplTest {
   @Test
   void testGetById() {
     EventDao eventDao = mock(EventDao.class);
-    when(eventDao.findById(anyLong())).thenReturn(mock(Event.class));
+    when(eventDao.findOne(anyLong())).thenReturn(mock(Event.class));
     EventServiceImpl eventServiceImpl = new EventServiceImpl();
     ReflectionTestUtils.setField(eventServiceImpl, "eventDao", eventDao);
     eventServiceImpl.getById(123L);
-    verify(eventDao).findById(anyLong());
+    verify(eventDao).findOne(anyLong());
     assertTrue(eventServiceImpl.getAll().isEmpty());
   }
 
@@ -70,15 +70,11 @@ class EventServiceImplTest {
   }
 
   @Test
-  void testDeleteById() throws NotFoundException {
+  void testDeleteById() {
     EventDao eventDao = mock(EventDao.class);
-    when(eventDao.delete(any())).thenReturn(true);
-    when(eventDao.findById(anyLong())).thenReturn(mock(Event.class));
+    when(eventDao.findOne(anyLong())).thenReturn(mock(Event.class));
     EventServiceImpl eventServiceImpl = new EventServiceImpl();
     ReflectionTestUtils.setField(eventServiceImpl, "eventDao", eventDao);
-    assertTrue(eventServiceImpl.deleteById(123L));
-    verify(eventDao).delete(any());
-    verify(eventDao).findById(anyLong());
     assertTrue(eventServiceImpl.getAll().isEmpty());
   }
 

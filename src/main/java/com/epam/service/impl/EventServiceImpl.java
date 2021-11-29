@@ -20,7 +20,7 @@ public class EventServiceImpl implements EventService {
 
   @Override
   public Event getById(long id) {
-    return eventDao.findById(id);
+    return eventDao.findOne(id);
   }
 
   @Override
@@ -39,8 +39,8 @@ public class EventServiceImpl implements EventService {
   }
 
   @Override
-  public boolean deleteById(long id) throws NotFoundException {
-    return eventDao.delete(eventDao.findById(id));
+  public void deleteById(long id) throws NotFoundException {
+    eventDao.delete(eventDao.findOne(id));
   }
 
   @Override

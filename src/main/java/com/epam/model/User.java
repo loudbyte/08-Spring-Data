@@ -1,9 +1,11 @@
 package com.epam.model;
 
+import java.io.Serializable;
+
 /**
  * Created by maksym_govorischev on 14/03/14.
  */
-public interface User {
+public interface User extends Serializable {
     /**
      * User Id. UNIQUE.
      * @return User Id.

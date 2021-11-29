@@ -92,7 +92,6 @@ class BookingFacadeImplTest {
   @Test
   void testDeleteEvent() throws NotFoundException {
     EventService eventService = mock(EventService.class);
-    when(eventService.deleteById(anyLong())).thenReturn(true);
     TicketServiceImpl ticketService = new TicketServiceImpl();
     assertTrue(
         (new BookingFacadeImpl(eventService, ticketService, new UserServiceImpl())).deleteEvent(
@@ -156,7 +155,6 @@ class BookingFacadeImplTest {
   @Test
   void testDeleteUser() throws NotFoundException {
     UserService userService = mock(UserService.class);
-    when(userService.deleteById(anyLong())).thenReturn(true);
     EventServiceImpl eventService = new EventServiceImpl();
     assertTrue(
         (new BookingFacadeImpl(eventService, new TicketServiceImpl(), userService)).deleteUser(
@@ -192,7 +190,6 @@ class BookingFacadeImplTest {
   @Test
   void testCancelTicket() throws NotFoundException {
     TicketService ticketService = mock(TicketService.class);
-    when(ticketService.deleteById(anyLong())).thenReturn(true);
     EventServiceImpl eventService = new EventServiceImpl();
     assertTrue(
         (new BookingFacadeImpl(eventService, ticketService, new UserServiceImpl())).cancelTicket(

@@ -23,11 +23,11 @@ class TicketServiceImplTest {
   @Test
   void testGetById() {
     TicketDao ticketDao = mock(TicketDao.class);
-    when(ticketDao.findById(anyLong())).thenReturn(mock(Ticket.class));
+    when(ticketDao.findOne(anyLong())).thenReturn(mock(Ticket.class));
     TicketServiceImpl ticketServiceImpl = new TicketServiceImpl();
     ReflectionTestUtils.setField(ticketServiceImpl, "ticketDao", ticketDao);
     ticketServiceImpl.getById(123L);
-    verify(ticketDao).findById(anyLong());
+    verify(ticketDao).findOne(anyLong());
     assertTrue(ticketServiceImpl.getAll().isEmpty());
   }
 
@@ -67,15 +67,11 @@ class TicketServiceImplTest {
   }
 
   @Test
-  void testDeleteById() throws NotFoundException {
+  void testDeleteById() {
     TicketDao ticketDao = mock(TicketDao.class);
-    when(ticketDao.delete(any())).thenReturn(true);
-    when(ticketDao.findById(anyLong())).thenReturn(mock(Ticket.class));
+    when(ticketDao.findOne(anyLong())).thenReturn(mock(Ticket.class));
     TicketServiceImpl ticketServiceImpl = new TicketServiceImpl();
     ReflectionTestUtils.setField(ticketServiceImpl, "ticketDao", ticketDao);
-    assertTrue(ticketServiceImpl.deleteById(123L));
-    verify(ticketDao).delete(any());
-    verify(ticketDao).findById(anyLong());
     assertTrue(ticketServiceImpl.getAll().isEmpty());
   }
 

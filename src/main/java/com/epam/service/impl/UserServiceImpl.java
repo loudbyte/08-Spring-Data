@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User getById(long id) {
-    return userDao.findById(id);
+    return userDao.findOne(id);
   }
 
   @Override
@@ -38,8 +38,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public boolean deleteById(long id) throws NotFoundException {
-    return userDao.delete(userDao.findById(id));
+  public void deleteById(long id) throws NotFoundException {
+    userDao.deleteById(id);
   }
 
   @Override

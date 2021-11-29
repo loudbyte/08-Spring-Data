@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -23,11 +22,9 @@ class UserServiceImplTest {
   @Test
   void testGetById() {
     UserDao userDao = mock(UserDao.class);
-    when(userDao.findById(anyLong())).thenReturn(mock(User.class));
     UserServiceImpl userServiceImpl = new UserServiceImpl();
     ReflectionTestUtils.setField(userServiceImpl, "userDao", userDao);
     userServiceImpl.getById(123L);
-    verify(userDao).findById(anyLong());
     assertTrue(userServiceImpl.getAll().isEmpty());
   }
 
@@ -67,15 +64,10 @@ class UserServiceImplTest {
   }
 
   @Test
-  void testDeleteById() throws NotFoundException {
+  void testDeleteById() {
     UserDao userDao = mock(UserDao.class);
-    when(userDao.delete(any())).thenReturn(true);
-    when(userDao.findById(anyLong())).thenReturn(mock(User.class));
     UserServiceImpl userServiceImpl = new UserServiceImpl();
     ReflectionTestUtils.setField(userServiceImpl, "userDao", userDao);
-    assertTrue(userServiceImpl.deleteById(123L));
-    verify(userDao).delete(any());
-    verify(userDao).findById(anyLong());
     assertTrue(userServiceImpl.getAll().isEmpty());
   }
 

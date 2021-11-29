@@ -14,6 +14,6 @@ public interface BaseService<T> {
 
   T update(T entity) throws NotFoundException;
 
-  boolean deleteById(long id) throws NotFoundException;
+  void deleteById(long id) throws NotFoundException;
 
 }

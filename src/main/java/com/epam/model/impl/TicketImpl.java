@@ -1,9 +1,28 @@
 package com.epam.model.impl;
 
 import com.epam.model.Ticket;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "ticket_table")
 public class TicketImpl implements Ticket {
 
+  @Id
+  @SequenceGenerator(
+      name="ticket_table_id_seq",
+      sequenceName="ticket_table_id_seq",
+      allocationSize=1)
+  @GeneratedValue(
+      strategy = GenerationType.SEQUENCE,
+      generator="ticket_table_id_seq"
+  )
+  @Column(name = "id", nullable = false)
   private Long id;
   private long eventId;
   private long userId;

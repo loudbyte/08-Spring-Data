@@ -77,7 +77,8 @@ public class BookingFacadeImpl implements BookingFacade {
   public boolean deleteEvent(long eventId) {
     LOGGER.info("Try to update event with id: " + eventId);
     try {
-      return eventService.deleteById(eventId);
+      eventService.deleteById(eventId);
+      return true;
     } catch (NotFoundException e) {
       LOGGER.log(Level.WARNING, "Error deleting event with id: " + eventId, e);
       return false;
@@ -133,7 +134,8 @@ public class BookingFacadeImpl implements BookingFacade {
   public boolean deleteUser(long userId) {
     LOGGER.info("Try to delete user with id: " + userId);
     try {
-      return userService.deleteById(userId);
+      userService.deleteById(userId);
+      return true;
     } catch (NotFoundException e) {
       LOGGER.log(Level.WARNING, "Error deleting user with id: " + userId, e);
       return false;
@@ -172,7 +174,8 @@ public class BookingFacadeImpl implements BookingFacade {
   public boolean cancelTicket(long ticketId) {
     LOGGER.info("Try to cancel ticket with id: " + ticketId);
     try {
-      return ticketService.deleteById(ticketId);
+      ticketService.deleteById(ticketId);
+      return true;
     } catch (NotFoundException e) {
       LOGGER.log(Level.WARNING, "Error cancelling ticket with id: " + ticketId, e);
       return false;
