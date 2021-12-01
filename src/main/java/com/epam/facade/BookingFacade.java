@@ -1,11 +1,13 @@
 package com.epam.facade;
 
 import com.epam.exception.BusinessException;
+import com.epam.exception.NotFoundException;
 import com.epam.model.Event;
 import com.epam.model.Ticket;
 import com.epam.model.Ticket.Category;
 import com.epam.model.User;
 
+import com.epam.model.UserAccount;
 import java.util.Date;
 import java.util.List;
 
@@ -140,5 +142,9 @@ public interface BookingFacade {
      * @return Flag whether anything has been canceled.
      */
     boolean cancelTicket(long ticketId);
+
+    void createUserAccount(UserAccount userAccount) throws BusinessException;
+
+    void fillUserAccount(long userAccountId, long money) throws NotFoundException;
 
 }

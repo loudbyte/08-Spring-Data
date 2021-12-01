@@ -7,9 +7,11 @@ import com.epam.model.Event;
 import com.epam.model.Ticket;
 import com.epam.model.Ticket.Category;
 import com.epam.model.User;
+import com.epam.model.UserAccount;
 import com.epam.model.impl.TicketImpl;
 import com.epam.service.EventService;
 import com.epam.service.TicketService;
+import com.epam.service.UserAccountService;
 import com.epam.service.UserService;
 import java.util.Date;
 import java.util.List;
@@ -20,17 +22,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookingFacadeImpl implements BookingFacade {
 
-  private final static Logger LOGGER = Logger.getLogger(BookingFacadeImpl.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(BookingFacadeImpl.class.getName());
 
   private final EventService eventService;
   private final TicketService ticketService;
   private final UserService userService;
+  private final UserAccountService userAccountService;
 
   public BookingFacadeImpl(EventService eventService, TicketService ticketService,
-      UserService userService) {
+      UserService userService, UserAccountService userAccountService) {
     this.eventService = eventService;
     this.ticketService = ticketService;
     this.userService = userService;
+    this.userAccountService = userAccountService;
   }
 
   @Override
@@ -182,5 +186,19 @@ public class BookingFacadeImpl implements BookingFacade {
       LOGGER.log(Level.WARNING, "Error cancelling ticket with id: " + ticketId, e);
       return false;
     }
+  }
+
+  @Override
+  public void createUserAccount(UserAccount userAccount) throws BusinessException {
+    LOGGER.info("Try to create userAccount");
+    userAccountService.create(userAccount);
+  }
+
+  @Override
+  public void fillUserAccount(long userAccountId, long money) throws NotFoundException {
+    LOGGER.info("Try to fill userAccount");
+    UserAccount userAccount = userAccountService.getByUserId(userAccountId);
+    userAccount.setMoney(money);
+    userAccountService.update(userAccount);
   }
 }
