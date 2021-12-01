@@ -3,6 +3,7 @@ package com.epam.facade;
 import com.epam.exception.BusinessException;
 import com.epam.model.Event;
 import com.epam.model.Ticket;
+import com.epam.model.Ticket.Category;
 import com.epam.model.User;
 
 import java.util.Date;

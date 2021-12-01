@@ -8,6 +8,7 @@ import com.epam.model.Ticket;
 import com.epam.model.User;
 import com.epam.service.TicketService;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,14 +47,14 @@ public class TicketServiceImpl implements TicketService {
   @Override
   public List<Ticket> getBookedTickets(User user) {
     return ticketDao.findAll().stream()
-        .filter(ticket -> ticket.getUserId() == user.getId())
+        .filter(ticket -> Objects.equals(ticket.getUser().getId(), user.getId()))
         .collect(Collectors.toList());
   }
 
   @Override
   public List<Ticket> getBookedTickets(Event event) {
     return ticketDao.findAll().stream()
-        .filter(ticket -> ticket.getEventId() == event.getId())
+        .filter(ticket -> Objects.equals(ticket.getEvent().getId(), event.getId()))
         .collect(Collectors.toList());
   }
 }

@@ -1,11 +1,14 @@
 package com.epam.model.impl;
 
+import com.epam.model.Event;
 import com.epam.model.Ticket;
+import com.epam.model.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -24,8 +27,10 @@ public class TicketImpl implements Ticket {
   )
   @Column(name = "id", nullable = false)
   private Long id;
-  private long eventId;
-  private long userId;
+  @JoinColumn(name = "event_id", referencedColumnName = "id")
+  private Event event;
+  @JoinColumn(name = "user_id", referencedColumnName = "id")
+  private User userId;
   private Category category;
   private int place;
 
@@ -40,23 +45,23 @@ public class TicketImpl implements Ticket {
   }
 
   @Override
-  public long getEventId() {
-    return eventId;
+  public Event getEvent() {
+    return event;
   }
 
   @Override
-  public void setEventId(long eventId) {
-    this.eventId = eventId;
+  public void setEvent(Event event) {
+    this.event = event;
   }
 
   @Override
-  public long getUserId() {
+  public User getUser() {
     return userId;
   }
 
   @Override
-  public void setUserId(long userId) {
-    this.userId = userId;
+  public void setUser(User user) {
+    this.userId = user;
   }
 
   @Override

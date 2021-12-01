@@ -144,11 +144,13 @@ public class BookingFacadeImpl implements BookingFacade {
 
   @Override
   public Ticket bookTicket(long userId, long eventId, int place, Category category) {
+    User user = userService.getById(userId);
+    Event event = eventService.getById(eventId);
     Ticket ticket = new TicketImpl();
     ticket.setCategory(category);
-    ticket.setUserId(userId);
+    ticket.setUser(user);
     ticket.setPlace(place);
-    ticket.setEventId(eventId);
+    ticket.setEvent(event);
     LOGGER.info("Try to book ticket: " + ticket);
     try {
       return ticketService.create(ticket);

@@ -6,7 +6,8 @@ import java.io.Serializable;
  * Created by maksym_govorischev.
  */
 public interface Ticket extends Serializable {
-    public enum Category {STANDARD, PREMIUM, BAR}
+
+    enum Category {STANDARD, PREMIUM, BAR}
 
     /**
      * Ticket Id. UNIQUE.
@@ -14,10 +15,10 @@ public interface Ticket extends Serializable {
      */
     Long getId();
     void setId(long id);
-    long getEventId();
-    void setEventId(long eventId);
-    long getUserId();
-    void setUserId(long userId);
+    Event getEvent();
+    void setEvent(Event event);
+    User getUser();
+    void setUser(User user);
     Category getCategory();
     void setCategory(Category category);
     int getPlace();
