@@ -1,6 +1,7 @@
 package com.epam.rest;
 
 import com.epam.exception.BusinessException;
+import com.epam.exception.NotFoundException;
 import com.epam.facade.BookingFacade;
 import com.epam.model.Event;
 import com.epam.model.Ticket;
@@ -127,7 +128,8 @@ public class MainController {
 
   @PostMapping("/book")
   public void book(@RequestParam int userId, @RequestParam int eventId,
-      @RequestParam int place, @RequestParam Ticket.Category category) {
+      @RequestParam int place, @RequestParam Ticket.Category category)
+      throws BusinessException, NotFoundException {
     bookingFacade.bookTicket(userId, eventId,place, category);
   }
 

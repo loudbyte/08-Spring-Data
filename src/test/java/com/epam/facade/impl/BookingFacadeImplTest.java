@@ -17,6 +17,10 @@ import com.epam.model.Event;
 import com.epam.model.Ticket;
 import com.epam.model.User;
 import com.epam.model.UserAccount;
+import com.epam.model.impl.EventImpl;
+import com.epam.model.impl.TicketImpl;
+import com.epam.model.impl.UserAccountImpl;
+import com.epam.model.impl.UserImpl;
 import com.epam.service.EventService;
 import com.epam.service.TicketService;
 import com.epam.service.UserAccountService;
@@ -177,15 +181,29 @@ class BookingFacadeImplTest {
   }
 
   @Test
-  void testBookTicket() throws BusinessException {
+  void testBookTicket() throws BusinessException, NotFoundException {
     TicketService ticketService = mock(TicketService.class);
     UserService userService = mock(UserService.class);
     EventService eventService = mock(EventService.class);
+    UserAccountService userAccountService = mock(UserAccountService.class);
+    Event event = new EventImpl();
+    User user = new UserImpl();
+    user.setId(111111L);
+    UserAccount userAccount = new UserAccountImpl();
+    userAccount.setId(111L);
+    userAccount.setUser(user);
+    userAccount.setMoney(400L);
+    event.setId(123L);
+    event.setTicketPrice(100);
+
     when(ticketService.create(any())).thenReturn(mock(Ticket.class));
-    (new BookingFacadeImpl(eventService, ticketService, userService,
-        new UserAccountServiceImpl())).bookTicket(123L,
-        123L, 1,
-        Ticket.Category.STANDARD);
+    when(eventService.getById(123L)).thenReturn(event);
+    when(userAccountService.getByUserId(111L)).thenReturn(userAccount);
+
+    BookingFacadeImpl bookingFacade = new BookingFacadeImpl(eventService, ticketService,
+        userService, userAccountService);
+    bookingFacade.bookTicket(111L, 123L, 1, Ticket.Category.STANDARD);
+
     verify(ticketService).create(any());
   }
 

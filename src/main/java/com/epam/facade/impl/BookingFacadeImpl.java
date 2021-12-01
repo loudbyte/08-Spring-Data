@@ -147,9 +147,11 @@ public class BookingFacadeImpl implements BookingFacade {
   }
 
   @Override
-  public Ticket bookTicket(long userId, long eventId, int place, Category category) {
+  public Ticket bookTicket(long userId, long eventId, int place, Category category)
+      throws NotFoundException, BusinessException {
     User user = userService.getById(userId);
     Event event = eventService.getById(eventId);
+    withdraw(userId, event.getTicketPrice());
     Ticket ticket = new TicketImpl();
     ticket.setCategory(category);
     ticket.setUser(user);
@@ -162,6 +164,16 @@ public class BookingFacadeImpl implements BookingFacade {
       LOGGER.log(Level.WARNING, "Error booking ticket: " + ticket, e);
       return null;
     }
+  }
+
+  private void withdraw(long userId, long ticketPrice) throws NotFoundException, BusinessException {
+    UserAccount userAccount = userAccountService.getByUserId(userId);
+    Long userAccountMoney = userAccount.getMoney();
+    if (userAccountMoney < ticketPrice) {
+      throw new BusinessException("Not enough money to book ticket");
+    }
+    userAccount.setMoney(userAccountMoney - ticketPrice);
+    userAccountService.update(userAccount);
   }
 
   @Override
