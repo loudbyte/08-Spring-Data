@@ -30,7 +30,7 @@ public class TicketImpl implements Ticket {
   @JoinColumn(name = "event_id", referencedColumnName = "id")
   private Event event;
   @JoinColumn(name = "user_id", referencedColumnName = "id")
-  private User userId;
+  private User user;
   private Category category;
   private int place;
 
@@ -56,12 +56,12 @@ public class TicketImpl implements Ticket {
 
   @Override
   public User getUser() {
-    return userId;
+    return user;
   }
 
   @Override
   public void setUser(User user) {
-    this.userId = user;
+    this.user = user;
   }
 
   @Override
