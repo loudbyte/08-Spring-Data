@@ -27,6 +27,7 @@ public class EventImpl implements Event {
   private Long id;
   private String title;
   private Date date;
+  private Long ticketPrice;
 
   @Override
   public Long getId() {
@@ -58,5 +59,15 @@ public class EventImpl implements Event {
   public void setDate(Date date) {
     this.date = date;
 
+  }
+
+  @Override
+  public Long getTicketPrice() {
+    return ticketPrice;
+  }
+
+  @Override
+  public void setTicketPrice(long ticketPrice) {
+    this.ticketPrice = ticketPrice;
   }
 }

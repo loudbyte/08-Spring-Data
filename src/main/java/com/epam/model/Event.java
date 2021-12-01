@@ -17,4 +17,6 @@ public interface Event extends Serializable {
     void setTitle(String title);
     Date getDate();
     void setDate(Date date);
+    Long getTicketPrice();
+    void setTicketPrice(long price);
 }
